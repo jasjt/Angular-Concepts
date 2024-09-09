@@ -1,0 +1,120 @@
+<div class="container mat-elevation-z4">
+  <marquee><h3>Template Forms</h3></marquee>
+    <form #form="ngForm" (ngSubmit)="onSubmit(form)">
+      <!-- Name Input -->
+      <div>
+        <mat-form-field appearance="fill">
+          <mat-label>Name</mat-label>
+          <input matInput name="name" ngModel required minlength="3" #name="ngModel" />
+          <mat-error *ngIf="name.invalid && name.touched">
+            <small *ngIf="name.errors?.['required']">Name is required.</small>
+            <small *ngIf="name.errors?.['minlength']">Name must be at least 3 characters long.</small>
+          </mat-error>
+        </mat-form-field>
+      </div>
+  
+      <!-- Email Input -->
+      <div>
+        <mat-form-field appearance="fill">
+          <mat-label>Email</mat-label>
+          <input matInput name="email" ngModel required email #email="ngModel" />
+          <mat-error *ngIf="email.invalid && email.touched">
+            <small *ngIf="email.errors?.['required']">Email is required.</small>
+            <small *ngIf="email.errors?.['email']">Email must be valid.</small>
+          </mat-error>
+        </mat-form-field>
+      </div>
+  
+      <!-- Phone Number Input -->
+      <div>
+        <mat-form-field appearance="fill">
+          <mat-label>Phone Number</mat-label>
+          <input matInput name="phone" ngModel required pattern="^\d{10}$" #phone="ngModel" />
+          <mat-error *ngIf="phone.invalid && phone.touched">
+            <small *ngIf="phone.errors?.['required']">Phone number is required.</small>
+            <small *ngIf="phone.errors?.['pattern']">Phone number must be 10 digits.</small>
+          </mat-error>
+        </mat-form-field>
+      </div>
+  
+      <!-- Address Form Group -->
+      <div>
+        <h4>Address</h4>
+        <!-- Street Input -->
+        <mat-form-field appearance="fill">
+          <mat-label>Street</mat-label>
+          <input matInput name="street" ngModel required #street="ngModel" />
+          <mat-error *ngIf="street.invalid && street.touched">
+            <small *ngIf="street.errors?.['required']">Street is required.</small>
+          </mat-error>
+        </mat-form-field>
+  
+        <!-- City Input -->
+        <mat-form-field appearance="fill">
+          <mat-label>City</mat-label>
+          <input matInput name="city" ngModel required #city="ngModel" />
+          <mat-error *ngIf="city.invalid && city.touched">
+            <small *ngIf="city.errors?.['required']">City is required.</small>
+          </mat-error>
+        </mat-form-field>
+  
+        <!-- Postal Code Input -->
+        <mat-form-field appearance="fill">
+          <mat-label>Postal Code</mat-label>
+          <input matInput name="postalCode" ngModel required pattern="^\d{5}$" #postalCode="ngModel" />
+          <mat-error *ngIf="postalCode.invalid && postalCode.touched">
+            <small *ngIf="postalCode.errors?.['required']">Postal Code is required.</small>
+            <small *ngIf="postalCode.errors?.['pattern']">Postal Code must be 5 digits.</small>
+          </mat-error>
+        </mat-form-field>
+      </div>
+  
+      <!-- Bio Textarea -->
+      <div>
+        <mat-form-field appearance="fill">
+          <mat-label>Bio</mat-label>
+          <textarea matInput name="bio" ngModel maxlength="200" #bio="ngModel"></textarea>
+          <mat-error *ngIf="bio.invalid && bio.touched">
+            <small *ngIf="bio.errors?.['maxlength']">Bio cannot exceed 200 characters.</small>
+          </mat-error>
+        </mat-form-field>
+      </div>
+  
+      <!-- Country Dropdown -->
+      <div>
+        <mat-form-field appearance="fill">
+          <mat-label>Country</mat-label>
+          <mat-select name="country" ngModel required #country="ngModel">
+            <mat-option *ngFor="let country of countries" [value]="country.value">{{ country.viewValue }}</mat-option>
+          </mat-select>
+          <mat-error *ngIf="country.invalid && country.touched">
+            <small>Country is required.</small>
+          </mat-error>
+        </mat-form-field>
+      </div>
+  
+      <!-- Subscribe Checkbox -->
+      <div>
+        <mat-checkbox name="subscribe" ngModel>Subscribe to Newsletter</mat-checkbox>
+      </div>
+  
+      <!-- Age Input -->
+      <div>
+        <mat-form-field appearance="fill">
+          <mat-label>Age</mat-label>
+          <input matInput type="number" name="age" ngModel required min="18" max="65" #age="ngModel" />
+          <mat-error *ngIf="age.invalid && age.touched">
+            <small *ngIf="age.errors?.['required']">Age is required.</small>
+            <small *ngIf="age.errors?.['min']">Age must be at least 18.</small>
+            <small *ngIf="age.errors?.['max']">Age must not exceed 65.</small>
+          </mat-error>
+        </mat-form-field>
+      </div>
+  
+      <!-- Submit Button -->
+      <button mat-raised-button color="primary" type="submit" [disabled]="form.invalid">
+        Submit
+      </button>
+    </form>
+  </div>
+  

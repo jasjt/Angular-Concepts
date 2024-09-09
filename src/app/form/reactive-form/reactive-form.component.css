@@ -1,0 +1,28 @@
+.container {
+  width: 100%;
+  max-width: 600px;
+  margin: auto;
+  padding: 2rem;
+  background-color: white;
+  border-radius: 8px;
+}
+
+.full-width {
+  width: 100%;
+}
+
+.mat-elevation-z4 {
+  box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.button-group {
+  text-align: center;
+  margin-top: 2rem;
+}
+  
+marquee {
+  padding-top: 1rem;
+  background-color: yellow;
+  color: brown;
+  margin-bottom: 1rem;
+}

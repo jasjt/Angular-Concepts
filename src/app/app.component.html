@@ -1,0 +1,44 @@
+<mat-toolbar color="primary">
+  <!-- Forms Menu -->
+  <h3 class="form-text" mat-button [matMenuTriggerFor]="formsMenu">Forms</h3>
+  <mat-menu #formsMenu="matMenu">
+    <button mat-menu-item [routerLink]="['/reactive-form']">Reactive Form</button>
+    <button mat-menu-item [routerLink]="['/template-form']">Template Form</button>
+  </mat-menu>
+
+  <!-- Routing Menu -->
+  <h3 class="form-text" mat-button [matMenuTriggerFor]="routingMenu">Routing</h3>
+  <mat-menu #routingMenu="matMenu">
+    <button mat-menu-item [routerLink]="['/home']">Home</button>
+    <button mat-menu-item [routerLink]="['/about']">About</button>
+    <button mat-menu-item [routerLink]="['/contact']">Contact</button>
+    <button mat-menu-item [routerLink]="['/product']">Products</button>
+    <button mat-menu-item [routerLink]="['/admin']">Admin</button>
+    <button mat-menu-item [routerLink]="['/lazy']">Lazy</button>
+  </mat-menu>
+
+  <!-- Store Menu -->
+  <h3 class="form-text" mat-button [matMenuTriggerFor]="storeMenu">Store</h3>
+  <mat-menu #storeMenu="matMenu">
+    <button mat-menu-item [routerLink]="['/product']">Product</button>
+    <button mat-menu-item [routerLink]="['/shopping']">Shopping</button>
+    <button mat-menu-item [routerLink]="['/order']">Order</button>
+  </mat-menu>
+
+  <!-- Material Menu -->
+  <h3 class="form-text" mat-button [matMenuTriggerFor]="matMenu">Material</h3>
+  <mat-menu #matMenu="matMenu">
+    <button mat-menu-item [routerLink]="['/mat-table']">Content</button>
+  </mat-menu>
+</mat-toolbar>
+
+<router-outlet></router-outlet>
+<!-- 
+<app-navbar></app-navbar>
+<div [ngSwitch]="true">
+  <div *ngSwitchCase="menuService.currentMenu === 'Product'"><app-product-list></app-product-list></div>
+  <div *ngSwitchCase="menuService.currentMenu === 'Shopping'"><app-cart></app-cart></div>
+  <div *ngSwitchCase="menuService.currentMenu === 'Order'"><app-history></app-history></div>
+  <div *ngSwitchDefault>Select Menu</div>
+</div>
+<app-reactive-form></app-reactive-form> -->

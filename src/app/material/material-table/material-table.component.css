@@ -1,0 +1,9 @@
+table {
+  width: 100%;
+}
+th.mat-header-cell {
+  text-align: left;
+}
+.mat-form-field {
+  width: 100%;
+}

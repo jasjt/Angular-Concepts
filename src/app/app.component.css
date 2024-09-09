@@ -1,0 +1,13 @@
+/* menu.component.css */
+mat-toolbar {
+  position: sticky;
+  top: 0;
+}
+
+.form-text:hover {
+  background-color: #ffffff;
+  color: #3f51b5;
+}
+.form-text {
+  padding: 1rem;
+}
