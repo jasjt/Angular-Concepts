@@ -1,28 +1,29 @@
+import { FlatTreeControl } from '@angular/cdk/tree';
+import { CommonModule } from '@angular/common';
 import { Component, ViewChild } from '@angular/core';
-import { MatMenuModule } from '@angular/material/menu';
-import { MatToolbarModule } from '@angular/material/toolbar';
-import { MatSidenavModule } from '@angular/material/sidenav';
-import { MatDialog, MatDialogModule } from '@angular/material/dialog';
+import { MatAutocompleteModule } from '@angular/material/autocomplete';
+import { MatButtonModule } from '@angular/material/button';
 import { MatCardModule } from '@angular/material/card';
+import { MatCheckboxModule } from '@angular/material/checkbox';
+import { MatChipsModule } from '@angular/material/chips';
+import { MatDialog, MatDialogModule } from '@angular/material/dialog';
+import { MatExpansionModule } from '@angular/material/expansion';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
-import { MatButtonModule } from '@angular/material/button';
-import { MatCheckboxModule } from '@angular/material/checkbox';
-import { MatRadioModule } from '@angular/material/radio';
-import { MatSelectModule } from '@angular/material/select';
-import { MatSliderModule } from '@angular/material/slider';
-import { MatSlideToggleModule } from '@angular/material/slide-toggle';
+import { MatMenuModule } from '@angular/material/menu';
+import { MatPaginatorModule } from '@angular/material/paginator';
 import { MatProgressBarModule } from '@angular/material/progress-bar';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
+import { MatRadioModule } from '@angular/material/radio';
+import { MatSelectModule } from '@angular/material/select';
+import { MatSidenavModule } from '@angular/material/sidenav';
+import { MatSlideToggleModule } from '@angular/material/slide-toggle';
+// import { MatSliderModule } from '@angular/material/slider';
 import { MatSnackBar, MatSnackBarModule } from '@angular/material/snack-bar';
-import { MatTableDataSource, MatTableModule } from '@angular/material/table';
 import { MatSort, MatSortModule } from '@angular/material/sort';
-import { MatPaginatorModule } from '@angular/material/paginator';
-import { MatExpansionModule } from '@angular/material/expansion';
+import { MatTableDataSource, MatTableModule } from '@angular/material/table';
+import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatTreeModule } from '@angular/material/tree';
-import { MatChipsModule } from '@angular/material/chips';
-import { MatAutocompleteModule } from '@angular/material/autocomplete';
-import { CommonModule } from '@angular/common';
 import { SuccessDialogComponent } from '../../form/success-dialog/success-dialog.component';
 
 @Component({
@@ -41,7 +42,7 @@ import { SuccessDialogComponent } from '../../form/success-dialog/success-dialog
     MatCheckboxModule,
     MatRadioModule,
     MatSelectModule,
-    MatSliderModule,
+    // MatSliderModule,
     MatSlideToggleModule,
     MatProgressBarModule,
     MatProgressSpinnerModule,
@@ -59,6 +60,7 @@ import { SuccessDialogComponent } from '../../form/success-dialog/success-dialog
 })
 export class MaterialTableComponent {
   @ViewChild(MatSort) sort!: MatSort;
+  treeControl = new FlatTreeControl<YourNodeType>(node => node.level, node => node.expandable);
   
   materialComponents : PeriodicElement[] = [
     { tag: 'mat-menu', module: 'MatMenuModule', component: 'menu' },
@@ -85,14 +87,31 @@ export class MaterialTableComponent {
     // { tag: 'mat-chips', module: 'MatChipsModule', component: 'chips' },
     { tag: 'mat-autocomplete', module: 'MatAutocompleteModule', component: 'autocomplete' }
   ];
-
+  treeData: YourNodeType[] = [
+    {
+      name: 'Node 1',
+      level: 0,
+      expandable: true,
+    },
+    {
+      name: 'Node 2',
+      level: 1,
+      expandable: false,
+    },
+  ];
   constructor(private snackBar: MatSnackBar, public dialog: MatDialog) {}
 
   openSnackBar() {
-    this.snackBar.open('Message archived', 'Undo', {
-      duration: 2000,
+    const snackBarRef = this.snackBar.open('Message archived', 'Undo', {
+      duration: 5000, // Set to 5 seconds for example
     });
+
+    // Close the snackbar after 2 seconds
+    setTimeout(() => {
+      snackBarRef.dismiss();
+    }, 2000);
   }
+  
 
   dataSource = new MatTableDataSource(this.materialComponents);
 
@@ -109,4 +128,11 @@ export interface PeriodicElement {
   tag: string;
   module: string;
   component: string;
+}
+
+export interface YourNodeType {
+  name: string;
+  level: number;
+  expandable: boolean;
+  // Other properties like id, children, etc., can be added here if needed.
 }

@@ -14,13 +14,12 @@
     <button mat-menu-item [routerLink]="['/contact']">Contact</button>
     <button mat-menu-item [routerLink]="['/product']">Products</button>
     <button mat-menu-item [routerLink]="['/admin']">Admin</button>
-    <button mat-menu-item [routerLink]="['/lazy']">Lazy</button>
   </mat-menu>
 
   <!-- Store Menu -->
   <h3 class="form-text" mat-button [matMenuTriggerFor]="storeMenu">Store</h3>
   <mat-menu #storeMenu="matMenu">
-    <button mat-menu-item [routerLink]="['/product']">Product</button>
+    <button mat-menu-item [routerLink]="['/product-list']">Product</button>
     <button mat-menu-item [routerLink]="['/shopping']">Shopping</button>
     <button mat-menu-item [routerLink]="['/order']">Order</button>
   </mat-menu>
