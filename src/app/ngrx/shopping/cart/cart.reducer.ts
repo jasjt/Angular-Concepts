@@ -1,12 +1,11 @@
 // cart.reducer.ts
 import { createReducer, on } from '@ngrx/store';
-import { CartState, CartItem } from './cart.model';
 import * as CartActions from './cart.action';
+import { CartState } from './cart.model';
 
 export const initialState: CartState = {
   items: [],
   totalPrice: 0,
-  discountApplied: false,
   snackbarMessage: { text: '', action: '', duration: 0 },
 };
 
@@ -17,40 +16,41 @@ const _cartReducer = createReducer(
 
     if (existingItemIndex >= 0) {
       // Item already exists, update the quantity
-      const updatedItems = [...state.items];
-      updatedItems[existingItemIndex] = {
-        ...state.items[existingItemIndex],
-        quantity: state.items[existingItemIndex].quantity + 1
-      };
-      return { 
-        ...state, 
+      const updatedItems = state.items.map((cartItem, index) =>
+        index === existingItemIndex
+          ? { ...cartItem, quantity: cartItem.quantity + 1 }
+          : cartItem
+      );
+
+      return {
+        ...state,
         items: updatedItems,
         totalPrice: state.totalPrice + item.price,
         snackbarMessage: {
-        text: "Quantity Updated",
+          text: "Quantity Updated",
           action: "Undo",
           duration: 1000
         }
       };
     }
 
+    // New item
     return {
       ...state,
       items: [...state.items, { ...item, quantity: 1 }],
-      totalPrice: state.totalPrice + item.price * item.quantity,
+      totalPrice: state.totalPrice + item.price,
       snackbarMessage: {
-          text: "Item added",
+        text: "Item added",
         action: "Undo",
         duration: 1000
       }
-    }
+    };
   }),
   on(CartActions.removeItem, (state, { productId }) => {
     const existingItemIndex = state.items.findIndex(item => item.productId === productId);
 
     if (existingItemIndex >= 0) {
       // Reduce the quantity if the item exists
-      const item = state.items[existingItemIndex];
       const updatedItems = state.items.map((cartItem, index) =>
         index === existingItemIndex
           ? { ...cartItem, quantity: cartItem.quantity - 1 }
@@ -58,9 +58,10 @@ const _cartReducer = createReducer(
       ).filter(item => item.quantity > 0); // Remove item if quantity is zero
       
       const updatedTotalPrice = updatedItems.reduce((acc, item) => acc + item.price * item.quantity, 0);
-      return { 
-        ...state, 
-        items: updatedItems, 
+
+      return {
+        ...state,
+        items: updatedItems,
         totalPrice: updatedTotalPrice,
         snackbarMessage: {
           text: "Item removed",
@@ -70,7 +71,15 @@ const _cartReducer = createReducer(
       };
     }
 
-    return state; // Return current state if item not found
+    // Return the state without changes if item not found
+    return {
+      ...state,
+      snackbarMessage: {
+        text: "Item not found",
+        action: null,
+        duration: 1000
+      }
+    };
   }),
   on(CartActions.showSnackbar, (state, { message, action }) => ({
     ...state,

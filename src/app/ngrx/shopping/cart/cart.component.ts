@@ -1,38 +1,30 @@
 import { CommonModule } from '@angular/common';
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
 import { MatCardModule } from '@angular/material/card';
-import { select, Store } from '@ngrx/store';
+import { Store } from '@ngrx/store';
 import { Observable } from 'rxjs';
+import { AppState } from '../../../store/reducer';
 import { removeItem } from './cart.action';
 import { selectCartItems, selectTotalPrice } from './cart.selector';
-import { MatSnackBar, MatSnackBarModule } from '@angular/material/snack-bar';
-import { AppState } from '../../../store/reducer';
 
 @Component({
   selector: 'app-cart',
   standalone: true,
-  imports: [CommonModule, MatCardModule, MatSnackBarModule],
+  imports: [CommonModule, MatCardModule],
   templateUrl: './cart.component.html',
   styleUrls: ['./cart.component.css']
 })
-export class CartComponent implements OnInit {
+export class CartComponent {
   cartItems$: Observable<any[]>;
   totalPrice$: Observable<number>;
+  show: boolean = true;
 
-  constructor(private store: Store<AppState>, private snackBar: MatSnackBar) {
+  constructor(private store: Store<AppState>) {
     this.cartItems$ = this.store.select(selectCartItems);
-    this.totalPrice$ = this.store.select(selectTotalPrice);
-  }
-
-  ngOnInit() {
-    this.store.pipe(
-      select(state => state.cart.snackbarMessage) // Select snackbarMessage from the state
-    ).subscribe(message => {
-      console.log('Snackbar message:', message); // Log the message for debugging
-      if (message?.text) { // Only show snackbar if there's a message
-        this.snackBar.open(message.text, message.action, { duration: message.duration });
-      }
+    this.cartItems$.subscribe((item) => {
+      this.show = item.length ? true : false;
     });
+    this.totalPrice$ = this.store.select(selectTotalPrice);
   }
 
   removeFromCart(productId: number) {

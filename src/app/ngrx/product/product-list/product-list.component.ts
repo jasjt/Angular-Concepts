@@ -2,13 +2,13 @@ import { CommonModule, CurrencyPipe } from '@angular/common';
 import { Component } from '@angular/core';
 import { MatCardModule } from '@angular/material/card';
 import { MatIconModule } from '@angular/material/icon';
-import { select, Store } from '@ngrx/store';
+import { MatSnackBar } from '@angular/material/snack-bar';
+import { Store } from '@ngrx/store';
 import { CommonUtilitiesModule } from '../../../common-utilities/common-utilities.module';
 import { NullCheckCurrencyPipe } from '../../../common-utilities/null-check-currency.pipe';
 import { AppState } from '../../../store/reducer';
 import { addItem, removeItem } from '../../shopping/cart/cart.action';
 import { CartItem } from '../../shopping/cart/cart.model';
-import { MatSnackBar } from '@angular/material/snack-bar';
 
 @Component({
   selector: 'app-product-list',
@@ -36,20 +36,16 @@ export class ProductListComponent {
   
   constructor(private store: Store<AppState>, private snackBar: MatSnackBar) { }
   
-  ngOnInit() {
-    this.store.pipe(
-      select(state => state.cart.snackbarMessage) // Select snackbarMessage from the state
-    ).subscribe(message => {
-      console.log('Snackbar message:', message); // Log the message for debugging
-      if (message?.text) { // Only show snackbar if there's a message
-        this.snackBar.open(message.text, message.action, { duration: message.duration });
-      }
-    });
-  }
-
-  addToCart(product: CartItem) {
-    this.store.dispatch(addItem({ item: product }));
-  }
+  // ngOnInit() {
+  //   this.store.pipe(
+  //     select(state => state.cart.snackbarMessage)
+  //   ).subscribe(message => {
+  //     console.log('Snackbar message:', message);
+  //     if (message?.text) {
+  //       this.snackBar.open(message.text, message.action, { duration: message.duration });
+  //     }
+  //   });
+  // }
 
   incrementQuantity(product: CartItem): void {
     this.store.dispatch(addItem({ item: { ...product, quantity: 1 } }));

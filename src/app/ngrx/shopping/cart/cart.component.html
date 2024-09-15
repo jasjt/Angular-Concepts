@@ -1,7 +1,7 @@
 
 <div class="cart-container">
-  <div *ngIf="cartItems$ | async as cartItems; else noItems">
-    <div class="cart-item" *ngFor="let item of cartItems">
+  <div *ngIf="show else noItems">
+    <div class="cart-item" *ngFor="let item of cartItems$ | async as cartItems; else noItems">
       <img class="cart-item-image" [src]="item.imageUrl" alt="{{ item.name }}">
       <div class="cart-item-details">
         <h2>{{ item.name }}</h2>
@@ -13,8 +13,8 @@
     <div class="total-price">
       <h3>Total Price: {{ totalPrice$ | async | currency }}</h3>
     </div>
-  </div>
+    </div>
   <ng-template #noItems>
-    <p>No items in the cart.</p>
+    <p class="total-price">No items in the cart.</p>
   </ng-template>
 </div>

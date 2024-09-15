@@ -8,23 +8,41 @@ import { CartItem } from './cart.model';
 export class CartService {
   private cartItems: CartItem[] = [];
 
-  // Simulate adding item to cart
   addItemToCart(item: CartItem): Observable<CartItem[]> {
     const existingItemIndex = this.cartItems.findIndex(i => i.productId === item.productId);
 
     if (existingItemIndex >= 0) {
-      // Update quantity
-      this.cartItems[existingItemIndex].quantity += 1;
+      // Item already exists, update quantity
+      const updatedItems = this.cartItems.map((cartItem, index) =>
+        index === existingItemIndex
+          ? { ...cartItem, quantity: cartItem.quantity + 1 }
+          : cartItem
+      );
+      this.cartItems = updatedItems;
     } else {
       // Add new item
-      this.cartItems.push({ ...item, quantity: 1 });
+      this.cartItems = [...this.cartItems, { ...item, quantity: 1 }];
     }
 
     return of(this.cartItems);
   }
-  // Simulating an API call to get a discount coupon
-  getDiscount(): Observable<number> {
-    // Simulating a delay (e.g., fetching from server)
-    return of(10); // Assume it returns a 10% discount
+
+  removeItemFromCart(productId: number): Observable<{ isRemoved: boolean, items: CartItem[] }> {
+    // Find the index of the item to be removed
+    const existingItemIndex = this.cartItems.findIndex(item => item.productId === productId);
+    let isRemoved = false;
+    if (existingItemIndex >= 0) {
+      // Reduce quantity or remove item
+      const updatedItems = this.cartItems.map((cartItem, index) =>
+        index === existingItemIndex
+          ? { ...cartItem, quantity: cartItem.quantity - 1 }
+          : cartItem
+      ).filter(item => item.quantity > 0); // Remove item if quantity is zero
+  
+      this.cartItems = updatedItems;
+      isRemoved = true;
+    }
+  
+    return of({ isRemoved, items: this.cartItems });
   }
 }
