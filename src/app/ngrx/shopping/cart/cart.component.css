@@ -1,0 +1,54 @@
+/* src/app/cart/cart.component.css */
+.cart-container {
+  display: flex;
+  flex-wrap: wrap; /* Allow items to wrap to the next line */
+  gap: 16px; /* Space between items */
+}
+
+.cart-item {
+  display: flex;
+  flex: 1 1 calc(33.333% - 16px); /* Adjust the card width and spacing */
+  border: 1px solid #ddd; /* Light border */
+  border-radius: 8px; /* Rounded corners */
+  padding: 16px; /* Padding inside the item */
+  box-sizing: border-box; /* Ensure padding is included in width */
+  background: #fff; /* Background color for the card */
+  align-items: center;
+}
+
+.cart-item-image {
+  width: 100px; /* Fixed width */
+  height: 100px; /* Fixed height */
+  object-fit: cover; /* Cover the area */
+  margin-right: 16px; /* Space between image and text */
+}
+
+.cart-item-details {
+  flex: 1;
+}
+
+.price {
+  font-size: 1.2rem; /* Larger font size for price */
+  margin: 8px 0; /* Space around the price */
+}
+
+.quantity {
+  font-size: 1rem; /* Normal font size for quantity */
+  color: #555; /* Slightly lighter color */
+}
+
+.remove-button {
+  background: #f44336; /* Red background for remove button */
+  color: white; /* White text */
+  border: none;
+  padding: 8px 16px;
+  cursor: pointer;
+  margin-top: 8px; /* Space above the button */
+}
+
+.total-price {
+  font-size: 1.2rem; /* Larger font size for total price */
+  font-weight: bold; /* Bold text for total price */
+  text-align: right; /* Align text to the right */
+  margin-top: 16px; /* Space above the total price */
+}

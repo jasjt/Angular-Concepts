@@ -1,4 +1,4 @@
-export class Product {
+export class ProductL {
     name: string;
     price: number | null;
     expectedDeliveryDate: number;
@@ -16,4 +16,10 @@ export class Product {
         result.setDate(result.getDate() + this.expectedDeliveryDate);
         return result;
     }
+}
+
+export interface Product {
+    name: string;
+    id: number;
+    price: number;
 }

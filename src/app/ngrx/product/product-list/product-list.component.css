@@ -1,0 +1,74 @@
+/* src/app/product/product.component.css */
+.product-container {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 16px; /* Space between cards */
+  justify-content: center; /* Center align the cards */
+  padding: 16px; /* Add padding around the container */
+}
+
+.product-card {
+  flex: 1 1 calc(33.333% - 16px); /* Adjust the card width and spacing */
+  box-sizing: border-box;
+  border-radius: 8px; /* Rounded corners for the card */
+  overflow: hidden; /* Hide overflow content */
+  transition: transform 0.3s ease-in-out, box-shadow 0.3s ease-in-out; /* Smooth transition for hover effects */
+  background: #fff; /* White background for better readability */
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* Default shadow for the card */
+}
+
+.product-card:hover {
+  transform: translateY(-5px); /* Lift the card on hover */
+  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2); /* Enhanced shadow on hover */
+}
+
+.product-card img {
+  width: 100%; /* Make the image take the full width of the card */
+  height: 200px; /* Set a fixed height for images */
+  object-fit: cover; /* Maintain aspect ratio and cover the area */
+  display: block; /* Ensure image takes full width without extra space */
+}
+
+mat-card-header {
+  background: #f7f7f7; /* Light background for header */
+  border-bottom: 1px solid #ddd; /* Subtle border */
+  padding: 16px; /* Add padding for better spacing */
+}
+
+mat-card-title {
+  font-size: 1.2rem; /* Larger title font size */
+  font-weight: bold; /* Bold title */
+  margin: 0; /* Remove default margin */
+}
+
+.price-container {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 16px; /* Add padding for spacing */
+  border-top: 1px solid #ddd; /* Subtle border at the top */
+}
+
+.price {
+  font-size: 1.1rem; /* Slightly larger font size for price */
+  color: #333; /* Dark color for better readability */
+  font-weight: bold; /* Bold price */
+  margin: 0; /* Remove default margin */
+}
+
+.quantity-controls {
+  margin-left: 2rem;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.quantity-controls button {
+  min-width: 36px;
+  min-height: 36px;
+}
+
+.quantity {
+  font-size: 1.1rem;
+  font-weight: bold;
+}

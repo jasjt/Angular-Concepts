@@ -29,6 +29,17 @@
   <mat-menu #matMenu="matMenu">
     <button mat-menu-item [routerLink]="['/mat-table']">Content</button>
   </mat-menu>
+  
+  <div class="toolbar-spacer"></div> <!-- Spacer to push items to the right -->
+
+  <!-- Cart Menu -->
+  <button mat-icon-button [matMenuTriggerFor]="cartMenu" class="cart-icon">
+    <mat-icon>shopping_cart</mat-icon>
+    <span *ngIf="cartItemCount$ | async as itemCount" class="cart-counter">{{ itemCount }}</span>
+  </button>
+  <mat-menu #cartMenu="matMenu">
+    <button mat-menu-item [routerLink]="['/shopping']">View Cart</button>
+  </mat-menu>
 </mat-toolbar>
 
 <router-outlet></router-outlet>
