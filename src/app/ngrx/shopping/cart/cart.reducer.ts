@@ -7,7 +7,7 @@ export const initialState: CartState = {
   items: [],
   totalPrice: 0,
   discountApplied: false,
-  snackbarMessage: null
+  snackbarMessage: { text: '', action: '', duration: 0 },
 };
 
 const _cartReducer = createReducer(
@@ -22,13 +22,27 @@ const _cartReducer = createReducer(
         ...state.items[existingItemIndex],
         quantity: state.items[existingItemIndex].quantity + 1
       };
-      return { ...state, items: updatedItems };
+      return { 
+        ...state, 
+        items: updatedItems,
+        totalPrice: state.totalPrice + item.price,
+        snackbarMessage: {
+        text: "Quantity Updated",
+          action: "Undo",
+          duration: 1000
+        }
+      };
     }
 
     return {
       ...state,
       items: [...state.items, { ...item, quantity: 1 }],
-      totalPrice: state.totalPrice + item.price * item.quantity
+      totalPrice: state.totalPrice + item.price * item.quantity,
+      snackbarMessage: {
+          text: "Item added",
+        action: "Undo",
+        duration: 1000
+      }
     }
   }),
   on(CartActions.removeItem, (state, { productId }) => {
@@ -44,7 +58,16 @@ const _cartReducer = createReducer(
       ).filter(item => item.quantity > 0); // Remove item if quantity is zero
       
       const updatedTotalPrice = updatedItems.reduce((acc, item) => acc + item.price * item.quantity, 0);
-      return { ...state, items: updatedItems, totalPrice: updatedTotalPrice };
+      return { 
+        ...state, 
+        items: updatedItems, 
+        totalPrice: updatedTotalPrice,
+        snackbarMessage: {
+          text: "Item removed",
+          action: "Undo",
+          duration: 1000
+        }
+      };
     }
 
     return state; // Return current state if item not found
